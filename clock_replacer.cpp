@@ -1,4 +1,4 @@
-#include<iostream>
+// #include<iostream>
 #include "clock_replacer.h"
 
 ClockReplacer::ClockReplacer(int num_pages) {
@@ -12,8 +12,7 @@ ClockReplacer::ClockReplacer(int num_pages) {
 }
 
 bool ClockReplacer::AccessFrame(int frame_id) {
-  // TODO: add || pinned is true
-  if (frame_id < 0 || frame_id >= numPages) return false;  
+  if (frame_id < 0 || frame_id >= numPages || pinned[frame_id]) return false;
 
   inClockReplacer[frame_id] = true; // called even if frame already in clock replacer
   clockRefFlag[frame_id] = true;
@@ -23,7 +22,7 @@ bool ClockReplacer::AccessFrame(int frame_id) {
 
 bool ClockReplacer::VictimizeFrame(int *frame_id) {
   while (numFramesInClockReplacer != 0) {
-    if (inClockReplacer[clockPointer]) {
+    if (inClockReplacer[clockPointer] && !pinned[clockPointer]) {
       if (clockRefFlag[clockPointer]) {
         clockRefFlag[clockPointer] = false;
       } else {
@@ -39,13 +38,21 @@ bool ClockReplacer::VictimizeFrame(int *frame_id) {
   return false;
 }
 
-// void ClockReplacer::Pin(int frame_id) {
+void ClockReplacer::Pin(int frame_id) {
+  if (frame_id < 0 || frame_id >= numPages || !inClockReplacer[frame_id]) 
+    return; 
 
-// }
+  pinned[frame_id] = true;
+  numFramesInClockReplacer--;
+}
 
-// void ClockReplacer::Unpin(int frame_id) {
+void ClockReplacer::Unpin(int frame_id) {
+  if (frame_id < 0 || frame_id >= numPages || !inClockReplacer[frame_id]) 
+    return; 
 
-// }
+  pinned[frame_id] = false;
+  numFramesInClockReplacer++;
+}
 
 int ClockReplacer::Size() {
   return numFramesInClockReplacer;

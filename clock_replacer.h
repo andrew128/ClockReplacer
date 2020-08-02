@@ -22,7 +22,8 @@ class ClockReplacer {
   // Puts frame back into replacement consideration
   void Unpin(int frame_id);
 
-  // Return number of frames currently in clock replacer
+  // Return number of frames currently in clock replacer that are unpinned
+  // (Can be victimized)
   int Size();
 
  private:
