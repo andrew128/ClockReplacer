@@ -1,4 +1,3 @@
-// #include<iostream>
 #include "clock_replacer.h"
 
 ClockReplacer::ClockReplacer(int num_pages) {
@@ -14,7 +13,7 @@ ClockReplacer::ClockReplacer(int num_pages) {
 bool ClockReplacer::AccessFrame(int frame_id) {
   if (frame_id < 0 || frame_id >= numPages || pinned[frame_id]) return false;
 
-  inClockReplacer[frame_id] = true; // called even if frame already in clock replacer
+  inClockReplacer[frame_id] = true;
   clockRefFlag[frame_id] = true;
   numFramesInClockReplacer++;
   return true;
