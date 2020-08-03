@@ -50,7 +50,7 @@ class ClockReplacer {
   int numPages;
   int numFramesInClockReplacer;
 
-  std::vector<bool> inClockReplacer;
-  std::vector<bool> clockRefFlag;
-  std::vector<bool> pinned;
+  std::vector<bool> inClockReplacer; // True if frame being used
+  std::vector<bool> clockRefFlag; // Stores reference bits
+  std::vector<bool> pinned; // True if pinned
 };
